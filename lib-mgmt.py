@@ -1,4 +1,4 @@
-from os import closerange, read
+from os import closerange, name, read
 import pickle
 import datetime
 import Screens as view
@@ -214,14 +214,26 @@ def Static_save():
     books.save_dic('books','./Data/dict-pickle')
     members.save_dic('members','./Data/dict-pickle')
 def Loan_book(listOfBooks, member):
-    manager.return_book(listOfBooks,member, path_to_user_history,path_to_book_history, path_to_user_history_log,path_to_book_history_log)
-def Return_book(listOfBooks, member):
     manager.loan(listOfBooks,member, path_to_user_history,path_to_book_history, path_to_user_history_log,path_to_book_history_log)
+def Return_book(listOfBooks, member):
+    manager.return_book(listOfBooks,member, path_to_user_history,path_to_book_history, path_to_user_history_log,path_to_book_history_log)
 def add_member(name):
     members.add(name, 'member', path_to_user_history)
 def add_book(name):
     books.add(name,'book', path_to_book_history)
+def str_to_list(st):
+    temp_list  = []
+    temp_str = ''
+    for i in st:
+        
+        if i != ',':
+            temp_str = temp_str + i
+        else:
+            temp_list.append(temp_str)
+            temp_str = ''    
+           
 
+    return temp_list  
 
 
 
@@ -252,19 +264,7 @@ membersList = members.return_as_list()
 membersANDbooksDict = members.load_dict('members',"./Data/dict-pickle")
 booksANDusersDict = members.load_dict('books',"./Data/dict-pickle")
 
-def str_to_list(st):
-    temp_list  = []
-    temp_str = ''
-    for i in st:
-        
-        if i != ',':
-            temp_str = temp_str + i
-        else:
-            temp_list.append(temp_str)
-            temp_str = ''    
-           
-
-    return temp_list            
+          
 
 state = True
 
@@ -274,25 +274,46 @@ while state:
 
 
     if choice == '1':
-        Name = input('enter the name: \b')
-        Books1 = input("""Enter the name of the books. put a ',' in between """ )+ ','
+        Name = input('enter the name: \n')
+        Books1 = input("""Enter the name of the books. put a ',' in between \n Books: """ )+ ','
         list_of_books = str_to_list(Books1)
-        print("list is: ")
-        print(list_of_books)
+        Loan_book(list_of_books, Name)
+        Static_save()
         
-        book_list = []
 
     elif choice == '2':
-        pass
+        Name = input('Enter the name: \n')
+        Books1 = input("""Enter the name of the boosk. put a ',' in between \n Books : """)+ ','
+        list_of_books = str_to_list(Books1)
+        Return_book(list_of_books, Name)
+        Static_save()
+
+
     elif choice == '3':        
-        pass
+        Name = input('Enter the name: \n')
+        add_member(Name)
+
     elif choice == '4':
-        pass
+        Name = input('Enter the name of the book: \n')
+        add_book(Name)
     elif choice == '5':
-        pass
+        Choice = input('ALL DATA WILL BE DELETED! \n ARE YOU SURE? Y/N').lower()
+        if choice == 'y':
+            booksANDusersDict = {
+
+            }
+            membersANDbooksDict = {
+
+            }
+            Define_dictionary()
+            Make_history_files()
+            Static_save()
+
     elif choice == '6':
-        pass
+        books.read()
     elif choice == '7':
-        pass
+        members.read()
     elif choice == '8':
         pass                        
+print (membersANDbooksDict)
+print (booksANDusersDict)    
