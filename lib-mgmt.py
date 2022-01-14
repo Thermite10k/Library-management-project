@@ -19,6 +19,14 @@ class manage_files:
             print(line)
         File.close()
 
+
+    def read_2(self, path):
+        
+        File = open(path, 'r')
+        return File
+        
+
+
     def return_as_list(self):
 
         temp_list = []
@@ -55,7 +63,12 @@ class manage_files:
         File.close()
 
 
+    def show_history(self, path, name):
+        File = self.read_2(f'{path}/{name}.txt')
+        for line in File:
 
+            print(line)
+        File.close()
 
     def return_history_as_list(self, name,path_to_history):
         temp_list = []
@@ -274,7 +287,7 @@ while state:
 
 
     if choice == '1':
-        Name = input('enter the name: \n')
+        Name = input("enter the members's name. \n Name: ")
         Books1 = input("""Enter the name of the books. put a ',' in between \n Books: """ )+ ','
         list_of_books = str_to_list(Books1)
         Loan_book(list_of_books, Name)
@@ -282,7 +295,7 @@ while state:
         
 
     elif choice == '2':
-        Name = input('Enter the name: \n')
+        Name = input("enter the members's name. \n Name: ")
         Books1 = input("""Enter the name of the boosk. put a ',' in between \n Books : """)+ ','
         list_of_books = str_to_list(Books1)
         Return_book(list_of_books, Name)
@@ -314,7 +327,19 @@ while state:
     elif choice == '7':
         members.read()
     elif choice == '8':
-        pass                        
-print (membersANDbooksDict)
-print (booksANDusersDict) 
+        choice = input(view.History_view)
+        if choice == '1':
+            Name = input("Please Enter the name of the book.\n Name: ")
+            books.show_history(path_to_book_history_log, Name)
+        if choice == '2':
+            Name = input('Please Enther the name of the member.\n Name: ')     
+            members.show_history(path_to_user_history_log, Name)  
+
+    elif choice == '9':
+
+        print (membersANDbooksDict)
+        print (booksANDusersDict)
+
+    else:
+        print('Choie MUST be a nunber. From 1 to 8')    
 #A   

@@ -8,9 +8,13 @@ _______________________
 5 = Clear database
 6 = Show a list of books
 7 = Show a list of members
-8 = show log
+8 = show history
 
 lib mgmt v1.01   2022
 _______________________
 """
 
+History_view = """ 
+1 = Show Book history
+2 = Show Member history
+"""
