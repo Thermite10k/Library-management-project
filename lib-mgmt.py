@@ -1,4 +1,6 @@
+import imp
 from os import closerange, name, read
+import winsound
 import pickle
 import datetime
 import Screens as view
@@ -187,13 +189,21 @@ class book_user_mgmt(manage_files):
 
    
     def  loan(self, books,member,path_to_user_history,path_to_book_history,path_to_user_history_log,path_to_book_history_log):
+        
+        available_books = []
+        for book in books:
+            if is_avilable(book, booksANDusersDict):
+                available_books.append(book)
+            else:
+                print(f'{book} is not available.\n')    
+        
         current_books = self.return_history_as_list(member,path_to_user_history)
-        total_books = books+current_books
-        print(total_books)
+        total_books = available_books+current_books
+        
         
         membersANDbooksDict.update({member: total_books})
         
-        for book in books:
+        for book in available_books:
             booksANDusersDict.update({book: member})
             self.add_book_to_user(book, path_to_user_history, member)
             self.add_book_to_user_log(book, path_to_user_history_log, member)
@@ -263,6 +273,8 @@ path_to_user_history = "./Data/UserHistory"
 path_to_book_history = "./Data/BookHistory"
 path_to_user_history_log = "./Data/UserHistory/log"
 path_to_book_history_log = "./Data/BookHistory/log"
+frequency = 800
+duration = 250
 # objects
 books = manage_files("./Data/Books.txt", membersANDbooksDict, booksANDusersDict)
 members = manage_files("./Data/Members.txt", membersANDbooksDict, booksANDusersDict)
@@ -283,6 +295,7 @@ state = True
 
 while state:
     choice = str(input(view.home))
+    
 
 
 
@@ -292,6 +305,7 @@ while state:
         list_of_books = str_to_list(Books1)
         Loan_book(list_of_books, Name)
         Static_save()
+        winsound.Beep(frequency, duration)
         
 
     elif choice == '2':
@@ -300,18 +314,23 @@ while state:
         list_of_books = str_to_list(Books1)
         Return_book(list_of_books, Name)
         Static_save()
+        winsound.Beep(frequency, duration)
 
 
     elif choice == '3':        
         Name = input('Enter the name: \n')
         add_member(Name)
+        winsound.Beep(frequency, duration)
 
     elif choice == '4':
         Name = input('Enter the name of the book: \n')
         add_book(Name)
+        winsound.Beep(frequency, duration)
     elif choice == '5':
+        winsound.Beep(frequency, duration)
         Choice = input('ALL DATA WILL BE DELETED! \n ARE YOU SURE? Y/N').lower()
-        if choice == 'y':
+        if Choice == 'y':
+            
             booksANDusersDict = {
 
             }
@@ -321,19 +340,28 @@ while state:
             Define_dictionary()
             Make_history_files()
             Static_save()
+            input('Done!\nPress Enter to leave')
 
     elif choice == '6':
         books.read()
+        input('Press Enter to leave')
+        winsound.Beep(frequency, duration)
     elif choice == '7':
         members.read()
+        input('Press Enter to leave')
+        winsound.Beep(frequency, duration)
     elif choice == '8':
         choice = input(view.History_view)
         if choice == '1':
             Name = input("Please Enter the name of the book.\n Name: ")
             books.show_history(path_to_book_history_log, Name)
+            input('Press Enter to leave')
+            winsound.Beep(frequency, duration)
         if choice == '2':
             Name = input('Please Enther the name of the member.\n Name: ')     
-            members.show_history(path_to_user_history_log, Name)  
+            members.show_history(path_to_user_history_log, Name)
+            input('Press Enter to leave')
+            winsound.Beep(frequency, duration)  
 
     elif choice == '9':
 
