@@ -6,7 +6,7 @@ import pickle
 import datetime
 import Screens as view
 
-
+#this class is used to manage .txt files and the Dictionary
 class manage_files:
     def __init__(self, path_to_file, member_dict, books_dict):
         self.path_to_file = path_to_file
@@ -22,14 +22,14 @@ class manage_files:
             print(line)
         File.close()
 
-
+# test method, not used in the code.
     def read_2(self, path):
         
         File = open(path, 'r')
         return File
         
 
-
+# returns data form a .txt file as a python list. each line is a new item.
     def return_as_list(self):
 
         temp_list = []
@@ -43,11 +43,11 @@ class manage_files:
 
 
 
-
+# this method adds new members/ books to both the dictionary and the .txt file.
     def add(self, name, type, path_to_history):
         temp_list = []
         temp_list.append(name)
-        print("reached 1 ________")
+        
         File = open(f"{self.path_to_file}", "a")
         File.write(f"{name}\n")
         File.close()
@@ -55,24 +55,24 @@ class manage_files:
             print("reached 3 ________")
             booksANDusersDict.update({name:''})
         elif type == 'member':
-            print("reached 2 ________")
+            
             membersANDbooksDict.update({name:''})
         File.close()
         self.make_history(path_to_history, temp_list)            
-
+# makes .txt files in the given DIR 
     def make_history(self,path_to_history, memberlist):
         for member in memberlist:
             File = open(f'{path_to_history}/{member}.txt', 'w')
         File.close()
 
-
+# Reads history files.
     def show_history(self, path, name):
         File = self.read_2(f'{path}/{name}.txt')
         for line in File:
 
             print(line)
         File.close()
-
+# returns data form a .txt file as a python list. each line is a new item. temp_list.append(line[0:-1]) removes \n form each line
     def return_history_as_list(self, name,path_to_history):
         temp_list = []
         File = open(f"{path_to_history}/{name}.txt", 'r')
@@ -82,7 +82,7 @@ class manage_files:
         File.close()
         return temp_list
 
-
+# more like define dictionary, this method adds books and members to the empty dictionary.
     def save_as_dictonary(self, booksList, membersList):
 
         for member in membersList:
@@ -90,7 +90,7 @@ class manage_files:
         for book in booksList:
             booksANDusersDict.update({book:''})
         #print(booksANDusersDict.keys())
-    
+ # saves dictionary as a file so it can be loaded when the program is restarted   
     def save_dic(self,filename,path):
         
         if filename == "members":
@@ -105,7 +105,7 @@ class manage_files:
             File = open(f'{path}/{filename}', 'wb')
             pickle.dump(book_dict, File)
             print("saving done_________________")
-
+# loads the data when the program is started.
     def load_dict(self,filename,path):
         
         
@@ -123,7 +123,7 @@ class manage_files:
             return data
             
             
-            
+# checks if the book is free by checking the value . if it's empty than it's free.            
 def is_avilable(book,booksANDusersDict):
     
     value = booksANDusersDict.get(book)
@@ -131,6 +131,7 @@ def is_avilable(book,booksANDusersDict):
         return False
     else:
         return True
+# check to see if a book exists.        
 def does_exist(book):
     
     value = booksANDusersDict.get(book)
@@ -140,14 +141,14 @@ def does_exist(book):
         return False    
             
 
-
+# Clears consol. works both on windows and mac machines.
 clearConsole = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
 
 
 class book_user_mgmt(manage_files):    
 
-        
+# the following 8 methods are used to manage history and dictionary files. DateTime is used to keep a log.        
     def add_book_to_user(self,booksName, path_to_user_history, membername):
         
         File = open(f'{path_to_user_history}/{membername}.txt', 'a+')
@@ -199,10 +200,11 @@ class book_user_mgmt(manage_files):
                     File.write(line)
 
 
-   
+    # this method loans a book. books are given as a list. 
     def  loan(self, books,member,path_to_user_history,path_to_book_history,path_to_user_history_log,path_to_book_history_log):
         
         available_books = []
+        # this for loop checks to see if there area any free books among th egiven books, if there are than add them to the list declared above. 
         for book in books:
             if is_avilable(book, booksANDusersDict) & does_exist(book):
                 available_books.append(book)
@@ -211,10 +213,11 @@ class book_user_mgmt(manage_files):
         
         current_books = self.return_history_as_list(member,path_to_user_history)
         total_books = available_books+current_books
+        # total books is the books already loaned to the user + the books he requested which are available.
         
         
         membersANDbooksDict.update({member: total_books})
-        
+        # this for loop manages history files.
         for book in available_books:
             booksANDusersDict.update({book: member})
             self.add_book_to_user(book, path_to_user_history, member)
@@ -223,9 +226,9 @@ class book_user_mgmt(manage_files):
             self.add_user_to_book_log(book, path_to_book_history_log, member)
 
     def return_book(self, books, member, path_to_user_history, path_to_book_history,path_to_user_history_log,path_to_book_history_log):
-
+        # this method is  to self.loan(args*, kwargs**) but it workes the other way around.
         current_books = self.return_history_as_list(member,path_to_user_history)
-        print(current_books)
+        
 
         for book in books:
             booksANDusersDict.update({book: ''})
@@ -235,7 +238,7 @@ class book_user_mgmt(manage_files):
             self.add_user_return_to_book_log(book, path_to_book_history_log, member)
             self.add_book_to_user_retuen_log(book,path_to_user_history_log,member)
         membersANDbooksDict.update({member: current_books})      
-
+# this Functions simplify the methods. the also have TRY : except <ERROR> to prevent any errors.
 def Make_history_files():
 
     books.make_history(path_to_book_history, booksList)
@@ -297,13 +300,13 @@ duration = 250
 books = manage_files("./Data/Books.txt", membersANDbooksDict, booksANDusersDict)
 members = manage_files("./Data/Members.txt", membersANDbooksDict, booksANDusersDict)
 manager = book_user_mgmt(None, membersANDbooksDict, booksANDusersDict)
-# after methods that update the dictionary, save_as_dictionary
-# 
+
+ 
 
 #this lists are used in other methods, execute first
 booksList = books.return_as_list()
 membersList = members.return_as_list()
-
+# loading data, executed  only when the program is started.
 membersANDbooksDict = members.load_dict('members',"./Data/dict-pickle")
 booksANDusersDict = members.load_dict('books',"./Data/dict-pickle")
 
@@ -396,7 +399,9 @@ while state:
         print (membersANDbooksDict)
         print (booksANDusersDict)
         input('Press Enter to leave')
+    elif choice.lower() == 'exit':
+        
+        state = False    
 
     else:
         print('Choie MUST be a nunber. From 1 to 8')    
-#fetch   
