@@ -4,6 +4,8 @@ from os import closerange, name, read
 import winsound
 import pickle
 import datetime
+
+from django.forms import ClearableFileInput
 import Screens as view
 
 #this class is used to manage .txt files and the Dictionary
@@ -400,7 +402,7 @@ while state:
         print (booksANDusersDict)
         input('Press Enter to leave')
     elif choice.lower() == 'exit':
-        
+        clearConsole()
         state = False    
 
     else:

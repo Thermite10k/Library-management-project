@@ -9,6 +9,7 @@ _______________________
 6 = Show a list of books
 7 = Show a list of members
 8 = show history
+9 = Show Dictionary
 
 
 lib mgmt v1.01   2022
