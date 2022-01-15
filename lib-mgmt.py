@@ -1,4 +1,5 @@
-import imp
+import imp 
+import os
 from os import closerange, name, read
 import winsound
 import pickle
@@ -97,13 +98,13 @@ class manage_files:
             
             File = open(f'{path}/{filename}', 'wb')
             pickle.dump(member_dict, File)
-            print("sacing done_________________")
+            print("saving done_________________")
         elif filename == "books":
             book_dict = booksANDusersDict
 
             File = open(f'{path}/{filename}', 'wb')
             pickle.dump(book_dict, File)
-            print("sacing done_________________")
+            print("saving done_________________")
 
     def load_dict(self,filename,path):
         
@@ -129,7 +130,18 @@ def is_avilable(book,booksANDusersDict):
     if value != '':
         return False
     else:
-        return True              
+        return True
+def does_exist(book):
+    
+    value = booksANDusersDict.get(book)
+    if value != None:
+        return True
+    else:
+        return False    
+            
+
+
+clearConsole = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
 
 
@@ -192,10 +204,10 @@ class book_user_mgmt(manage_files):
         
         available_books = []
         for book in books:
-            if is_avilable(book, booksANDusersDict):
+            if is_avilable(book, booksANDusersDict) & does_exist(book):
                 available_books.append(book)
             else:
-                print(f'{book} is not available.\n')    
+                input(f'{book} is not available or it does not exist.\nPress Enter to continue...')    
         
         current_books = self.return_history_as_list(member,path_to_user_history)
         total_books = available_books+current_books
@@ -237,9 +249,15 @@ def Static_save():
     books.save_dic('books','./Data/dict-pickle')
     members.save_dic('members','./Data/dict-pickle')
 def Loan_book(listOfBooks, member):
-    manager.loan(listOfBooks,member, path_to_user_history,path_to_book_history, path_to_user_history_log,path_to_book_history_log)
+    try:
+        manager.loan(listOfBooks,member, path_to_user_history,path_to_book_history, path_to_user_history_log,path_to_book_history_log)
+    except FileNotFoundError:
+        input('Member does not exist')
 def Return_book(listOfBooks, member):
-    manager.return_book(listOfBooks,member, path_to_user_history,path_to_book_history, path_to_user_history_log,path_to_book_history_log)
+    try:
+        manager.return_book(listOfBooks,member, path_to_user_history,path_to_book_history, path_to_user_history_log,path_to_book_history_log)
+    except FileNotFoundError:
+        input('Member/book does not exist')
 def add_member(name):
     members.add(name, 'member', path_to_user_history)
 def add_book(name):
@@ -294,6 +312,7 @@ booksANDusersDict = members.load_dict('books',"./Data/dict-pickle")
 state = True
 
 while state:
+    clearConsole()
     choice = str(input(view.home))
     
 
@@ -307,6 +326,7 @@ while state:
         Static_save()
         winsound.Beep(frequency, duration)
         
+        
 
     elif choice == '2':
         Name = input("enter the members's name. \n Name: ")
@@ -315,17 +335,20 @@ while state:
         Return_book(list_of_books, Name)
         Static_save()
         winsound.Beep(frequency, duration)
+        
 
 
     elif choice == '3':        
         Name = input('Enter the name: \n')
         add_member(Name)
         winsound.Beep(frequency, duration)
+        
 
     elif choice == '4':
         Name = input('Enter the name of the book: \n')
         add_book(Name)
         winsound.Beep(frequency, duration)
+        
     elif choice == '5':
         winsound.Beep(frequency, duration)
         Choice = input('ALL DATA WILL BE DELETED! \n ARE YOU SURE? Y/N').lower()
@@ -341,15 +364,18 @@ while state:
             Make_history_files()
             Static_save()
             input('Done!\nPress Enter to leave')
+            
 
     elif choice == '6':
         books.read()
         input('Press Enter to leave')
         winsound.Beep(frequency, duration)
+        
     elif choice == '7':
         members.read()
         input('Press Enter to leave')
         winsound.Beep(frequency, duration)
+        
     elif choice == '8':
         choice = input(view.History_view)
         if choice == '1':
@@ -357,17 +383,20 @@ while state:
             books.show_history(path_to_book_history_log, Name)
             input('Press Enter to leave')
             winsound.Beep(frequency, duration)
+            
         if choice == '2':
             Name = input('Please Enther the name of the member.\n Name: ')     
             members.show_history(path_to_user_history_log, Name)
             input('Press Enter to leave')
-            winsound.Beep(frequency, duration)  
+            winsound.Beep(frequency, duration)
+        
 
     elif choice == '9':
 
         print (membersANDbooksDict)
         print (booksANDusersDict)
+        input('Press Enter to leave')
 
     else:
         print('Choie MUST be a nunber. From 1 to 8')    
-#A   
+   
