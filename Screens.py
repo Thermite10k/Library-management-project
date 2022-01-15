@@ -10,7 +10,10 @@ _______________________
 7 = Show a list of members
 8 = show history
 
+
 lib mgmt v1.01   2022
+
+Type Exit to quit.
 _______________________
 """
 
@@ -21,19 +24,3 @@ History_view = """
 
 
 
-
-test_dict = {
-
-    'a': 'a',
-    'b': 'b'
-}
-
-def does_exist(book):
-    
-    value = test_dict.get(book)
-    if value != None:
-        return True
-    else:
-        return False 
-
-print(does_exist('d'))        
