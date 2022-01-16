@@ -236,12 +236,15 @@ class book_user_mgmt(manage_files):
         
 
         for book in books:
-            booksANDusersDict.update({book: ''})
-            current_books.remove(str(book)) 
-            self.remove_book_from_user(book.strip("\n"), path_to_user_history, member.strip("\n"))
-            self.remove_user_from_book(book.strip("\n"), path_to_book_history, member.strip("\n"))
-            self.add_user_return_to_book_log(book, path_to_book_history_log, member)
-            self.add_book_to_user_retuen_log(book,path_to_user_history_log,member)
+            try:
+                booksANDusersDict.update({book: ''})
+                current_books.remove(str(book)) 
+                self.remove_book_from_user(book.strip("\n"), path_to_user_history, member.strip("\n"))
+                self.remove_user_from_book(book.strip("\n"), path_to_book_history, member.strip("\n"))
+                self.add_user_return_to_book_log(book, path_to_book_history_log, member)
+                self.add_book_to_user_retuen_log(book,path_to_user_history_log,member)
+            except ValueError:
+                input(f"{member} can't return {book}")
         membersANDbooksDict.update({member: current_books})      
 # this Functions simplify the methods. the also have TRY : except <ERROR> to prevent any errors.
 def Make_history_files():
@@ -266,6 +269,7 @@ def Return_book(listOfBooks, member):
         manager.return_book(listOfBooks,member, path_to_user_history,path_to_book_history, path_to_user_history_log,path_to_book_history_log)
     except FileNotFoundError:
         input('Member/book does not exist')
+    
 def add_member(name):
     members.add(name, 'member', path_to_user_history)
 def add_book(name):

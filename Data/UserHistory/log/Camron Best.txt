@@ -6,3 +6,9 @@ In Search of Lost Time by Marcel Proust was taken by Camron Best at 2022-01-15 0
 In Search of Lost Time by Marcel Proust was returned by Camron Best at  2022-01-15 02:54:22.284602
 Moby Dick by Herman Melville was taken by Camron Best at 2022-01-15 22:39:25.560259
 Moby Dick by Herman Melville was returned by Camron Best at  2022-01-15 22:39:51.620036
+One Hundred Years of Solitude by Gabriel Garcia Marquez was taken by Camron Best at 2022-01-16 18:11:20.318300
+Ulysses by James Joyce was taken by Camron Best at 2022-01-16 18:11:20.348704
+The Great Gatsby by F. Scott Fitzgerald was taken by Camron Best at 2022-01-16 18:11:20.365390
+Ulysses by James Joyce was returned by Camron Best at  2022-01-16 18:21:43.851679
+The Great Gatsby by F. Scott Fitzgerald was returned by Camron Best at  2022-01-16 18:21:43.876090
+One Hundred Years of Solitude by Gabriel Garcia Marquez was returned by Camron Best at  2022-01-16 18:22:36.902032
