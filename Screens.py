@@ -25,3 +25,4 @@ History_view = """
 
 
 
+['One Hundred Years of Solitude by Gabriel Garcia Marquez', 'Ulysses by James Joyce', 'The Great Gatsby by F. Scott Fitzgerald']
