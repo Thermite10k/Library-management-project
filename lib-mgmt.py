@@ -2,8 +2,8 @@ import imp
 import os
 from os import closerange, name, read
 import winsound
-import pickle
-import datetime
+import pickle #used to save Dictionary as a file. 
+import datetime# used to add time to log files
 
 from django.forms import ClearableFileInput
 import Screens as view
