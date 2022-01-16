@@ -409,4 +409,4 @@ while state:
             state = False    
 
         else:
-            input('Choie MUST be a nunber, From 1 to 9, Press Enter to continue.')    
+            input('Choie MUST be a number, From 1 to 9, Press Enter to continue.')    
