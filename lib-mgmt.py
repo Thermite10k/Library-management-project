@@ -69,11 +69,14 @@ class manage_files:
 
 # Reads history files.
     def show_history(self, path, name):
-        File = self.read_2(f'{path}/{name}.txt')
-        for line in File:
+        try:
+            File = self.read_2(f'{path}/{name}.txt')
+            for line in File:
 
-            print(line)
-        File.close()
+                print(line)
+            File.close()
+        except FileNotFoundError:
+            input("File does not exist, Check spelling")    
 # returns data form a .txt file as a python list. each line is a new item. temp_list.append(line[0:-1]) removes \n form each line
     def return_history_as_list(self, name,path_to_history):
         temp_list = []
