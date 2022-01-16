@@ -317,93 +317,93 @@ booksANDusersDict = members.load_dict('books',"./Data/dict-pickle")
 state = True
 
 while state:
-    clearConsole()
-    choice = str(input(view.home))
-    
-
-
-
-    if choice == '1':
-        Name = input("enter the members's name. \n Name: ")
-        Books1 = input("""Enter the name of the books. put a ',' in between \n Books: """ )+ ','
-        list_of_books = str_to_list(Books1)
-        Loan_book(list_of_books, Name)
-        Static_save()
-        winsound.Beep(frequency, duration)
-        
-        
-
-    elif choice == '2':
-        Name = input("enter the members's name. \n Name: ")
-        Books1 = input("""Enter the name of the boosk. put a ',' in between \n Books : """)+ ','
-        list_of_books = str_to_list(Books1)
-        Return_book(list_of_books, Name)
-        Static_save()
-        winsound.Beep(frequency, duration)
-        
-
-
-    elif choice == '3':        
-        Name = input('Enter the name: \n')
-        add_member(Name)
-        winsound.Beep(frequency, duration)
-        
-
-    elif choice == '4':
-        Name = input('Enter the name of the book: \n')
-        add_book(Name)
-        winsound.Beep(frequency, duration)
-        
-    elif choice == '5':
-        winsound.Beep(frequency, duration)
-        Choice = input('ALL DATA WILL BE DELETED! \n ARE YOU SURE? Y/N').lower()
-        if Choice == 'y':
-            
-            booksANDusersDict = {
-
-            }
-            membersANDbooksDict = {
-
-            }
-            Define_dictionary()
-            Make_history_files()
-            Static_save()
-            input('Done!\nPress Enter to leave')
-            
-
-    elif choice == '6':
-        books.read()
-        input('Press Enter to leave')
-        winsound.Beep(frequency, duration)
-        
-    elif choice == '7':
-        members.read()
-        input('Press Enter to leave')
-        winsound.Beep(frequency, duration)
-        
-    elif choice == '8':
-        choice = input(view.History_view)
-        if choice == '1':
-            Name = input("Please Enter the name of the book.\n Name: ")
-            books.show_history(path_to_book_history_log, Name)
-            input('Press Enter to leave')
-            winsound.Beep(frequency, duration)
-            
-        if choice == '2':
-            Name = input('Please Enther the name of the member.\n Name: ')     
-            members.show_history(path_to_user_history_log, Name)
-            input('Press Enter to leave')
-            winsound.Beep(frequency, duration)
-        
-
-    elif choice == '9':
-
-        print (membersANDbooksDict)
-        print (booksANDusersDict)
-        input('Press Enter to leave')
-    elif choice.lower() == 'exit':
         clearConsole()
-        state = False    
+        choice = str(input(view.home))
+        
 
-    else:
-        print('Choie MUST be a nunber. From 1 to 8')    
+
+
+        if choice == '1':
+            Name = input("enter the members's name. \n Name: ")
+            Books1 = input("""Enter the name of the books. put a ',' in between \n Books: """ )+ ','
+            list_of_books = str_to_list(Books1)
+            Loan_book(list_of_books, Name)
+            Static_save()
+            winsound.Beep(frequency, duration)
+            
+            
+
+        elif choice == '2':
+            Name = input("enter the members's name. \n Name: ")
+            Books1 = input("""Enter the name of the boosk. put a ',' in between \n Books : """)+ ','
+            list_of_books = str_to_list(Books1)
+            Return_book(list_of_books, Name)
+            Static_save()
+            winsound.Beep(frequency, duration)
+            
+
+
+        elif choice == '3':        
+            Name = input('Enter the name: \n')
+            add_member(Name)
+            winsound.Beep(frequency, duration)
+            
+
+        elif choice == '4':
+            Name = input('Enter the name of the book: \n')
+            add_book(Name)
+            winsound.Beep(frequency, duration)
+            
+        elif choice == '5':
+            winsound.Beep(frequency, duration)
+            Choice = input('ALL DATA WILL BE DELETED! \n ARE YOU SURE? Y/N ').lower()
+            if Choice == 'y':
+                
+                booksANDusersDict = {
+
+                }
+                membersANDbooksDict = {
+
+                }
+                Define_dictionary()
+                Make_history_files()
+                Static_save()
+                input('Done!\nPress Enter to leave')
+                
+
+        elif choice == '6':
+            books.read()
+            input('Press Enter to leave')
+            winsound.Beep(frequency, duration)
+            
+        elif choice == '7':
+            members.read()
+            input('Press Enter to leave')
+            winsound.Beep(frequency, duration)
+            
+        elif choice == '8':
+            choice = input(view.History_view)
+            if choice == '1':
+                Name = input("Please Enter the name of the book.\n Name: ")
+                books.show_history(path_to_book_history_log, Name)
+                input('Press Enter to leave')
+                winsound.Beep(frequency, duration)
+                
+            if choice == '2':
+                Name = input('Please Enther the name of the member.\n Name: ')     
+                members.show_history(path_to_user_history_log, Name)
+                input('Press Enter to leave')
+                winsound.Beep(frequency, duration)
+            
+
+        elif choice == '9':
+
+            print (membersANDbooksDict)
+            print (booksANDusersDict)
+            input('Press Enter to leave')
+        elif choice.lower() == 'exit':
+            clearConsole()
+            state = False    
+
+        else:
+            input('Choie MUST be a nunber, From 1 to 9, Press Enter to continue.')    
